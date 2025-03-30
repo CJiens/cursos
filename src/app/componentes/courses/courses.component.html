@@ -1,0 +1,88 @@
+<section id="courses" class="py-20 bg-gray-50">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-12">
+        <span class="inline-block text-blue-600 font-semibold uppercase tracking-wider mb-2">Nuestros Cursos</span>
+        <h2 class="text-4xl font-bold text-gray-900 mb-4">Explora Nuestros Cursos Destacados</h2>
+        <p class="max-w-2xl mx-auto text-gray-600 text-lg">Descubre una amplia variedad de cursos diseñados para potenciar tus habilidades y abrir nuevas oportunidades profesionales.</p>
+      </div>
+      
+      <div class="flex flex-wrap justify-center gap-3 mb-12">
+        <button 
+          *ngFor="let category of categories" 
+          [ngClass]="{'bg-blue-600 text-white': activeCategory === category, 'bg-gray-100 text-gray-700 hover:bg-gray-200': activeCategory !== category}"
+          (click)="setCategory(category)"
+          class="px-4 py-2 rounded-full font-medium transition-colors">
+          {{ category | titlecase }}
+        </button>
+      </div>
+      
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="bg-white rounded-xl shadow-md overflow-hidden transition-all hover:-translate-y-2 hover:shadow-xl" *ngFor="let course of getFilteredCourses()">
+          <div class="relative h-48 overflow-hidden">
+            <img [src]="course.image" [alt]="course.title" class="w-full h-full object-cover transition-transform hover:scale-105">
+            <span class="absolute top-3 left-3 bg-white/90 text-blue-600 px-3 py-1 rounded-full text-xs font-semibold">
+              {{ course.category | titlecase }}
+            </span>
+            <span *ngIf="course.popular" class="absolute top-3 right-3 bg-red-500 text-white px-3 py-1 rounded-full text-xs font-semibold">
+              Popular
+            </span>
+          </div>
+          
+          <div class="p-5">
+            <h3 class="text-lg font-bold text-gray-900 mb-3 line-clamp-2 h-14">{{ course.title }}</h3>
+            
+            <div class="flex justify-between text-sm text-gray-600 mb-3">
+              <div class="flex items-center gap-1">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <polyline points="12 6 12 12 16 14"></polyline>
+                </svg>
+                {{ course.duration }}
+              </div>
+              <div class="flex items-center gap-1">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+                  <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+                </svg>
+                {{ course.level }}
+              </div>
+            </div>
+            
+            <div class="flex items-center gap-2 mb-4">
+              <div class="flex">
+                <span class="text-yellow-400" *ngFor="let star of getStars(course.rating)">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                  </svg>
+                </span>
+                <span class="text-yellow-400" *ngIf="getHalfStar(course.rating)">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                  </svg>
+                </span>
+                <span class="text-gray-300" *ngFor="let star of getEmptyStars(course.rating)">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                  </svg>
+                </span>
+              </div>
+              <span class="text-sm text-gray-600">{{ course.rating }} ({{ course.students }} estudiantes)</span>
+            </div>
+            
+            <div class="flex justify-between items-center">
+              <span class="text-xl font-bold text-gray-900">{{ course.price }}</span>
+              <a href="#" class="bg-gray-100 hover:bg-blue-600 hover:text-white text-blue-600 px-4 py-2 rounded-md text-sm font-semibold transition-colors">
+                Ver Detalles
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="text-center mt-12">
+        <a href="#" class="inline-block bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-full font-semibold transition-all hover:-translate-y-1 hover:shadow-lg">
+          Ver Todos los Cursos
+        </a>
+      </div>
+    </div>
+  </section>

@@ -1,0 +1,44 @@
+<header [ngClass]="{'shadow-md': isScrolled}" class="fixed top-0 left-0 w-full z-50 bg-white transition-all duration-300">
+    <div class="container mx-auto px-4 py-4 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <img src="https://i.imgur.com/JMe0Qzg.png" alt="Learning Academy Logo" class="w-10 h-10 object-cover">
+        <span class="text-xl font-bold text-blue-600">Learning Academy</span>
+      </div>
+      
+      <nav class="hidden lg:block">
+        <ul class="flex gap-8">
+          <li><a href="#home" class="text-gray-700 hover:text-blue-600 font-medium transition-colors">Inicio</a></li>
+          <li><a href="#courses" class="text-gray-700 hover:text-blue-600 font-medium transition-colors">Cursos</a></li>
+          <li><a href="#benefits" class="text-gray-700 hover:text-blue-600 font-medium transition-colors">Beneficios</a></li>
+          <li><a href="#instructors" class="text-gray-700 hover:text-blue-600 font-medium transition-colors">Instructores</a></li>
+          <li><a href="#testimonials" class="text-gray-700 hover:text-blue-600 font-medium transition-colors">Testimonios</a></li>
+        </ul>
+      </nav>
+      
+      <button class="hidden lg:block bg-blue-600 text-white px-5 py-2 rounded-full font-semibold hover:bg-blue-700 transition-all hover:-translate-y-0.5 hover:shadow-md">
+        Inscríbete Ahora
+      </button>
+      
+      <button class="lg:hidden" (click)="toggleMenu()">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </div>
+    
+    <div [ngClass]="{'translate-y-0 opacity-100 visible': isMenuOpen, '-translate-y-full opacity-0 invisible': !isMenuOpen}" 
+         class="lg:hidden absolute top-16 left-0 w-full bg-white shadow-md transition-all duration-300 transform">
+      <nav class="container mx-auto px-4 py-4">
+        <ul class="space-y-4">
+          <li><a href="#home" (click)="closeMenu()" class="block text-gray-700 hover:text-blue-600 font-medium">Inicio</a></li>
+          <li><a href="#courses" (click)="closeMenu()" class="block text-gray-700 hover:text-blue-600 font-medium">Cursos</a></li>
+          <li><a href="#benefits" (click)="closeMenu()" class="block text-gray-700 hover:text-blue-600 font-medium">Beneficios</a></li>
+          <li><a href="#instructors" (click)="closeMenu()" class="block text-gray-700 hover:text-blue-600 font-medium">Instructores</a></li>
+          <li><a href="#testimonials" (click)="closeMenu()" class="block text-gray-700 hover:text-blue-600 font-medium">Testimonios</a></li>
+        </ul>
+        <button class="mt-4 w-full bg-blue-600 text-white px-5 py-2 rounded-full font-semibold hover:bg-blue-700 transition-all">
+          Inscríbete Ahora
+        </button>
+      </nav>
+    </div>
+  </header>
